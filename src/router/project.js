@@ -5,15 +5,19 @@ var connection = require('../mysql');
 
 // 项目管理 --- 列表
 router.get('/query', function (req, res) {
-  var sql = 'select * from project';
+  let page = req.query.page == undefined ? 1 : req.query.page
+  let per_page = req.query.per_page == undefined ? 12 : req.query.per_page
+  let startPage = (page - 1) * per_page
+  var sql = `select * from project limit ${startPage},${per_page} `;
   connection.query(sql, function (err, result) {
     if (err) {
       console.log(err.message, 'err')
     }
     res.json({
       code: '200',
+      message: '操作成功',
       list: result,
-      message: '操作成功'
+      total: result.length
     })
   })
 })

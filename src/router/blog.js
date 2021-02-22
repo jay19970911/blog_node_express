@@ -7,7 +7,10 @@ var connection = require('../mysql');
  * 查询列表页
  */
 router.get("/query", function (req, res) {
-  var sql = 'select * from blog';
+  let page = req.query.page == undefined ? 1 : req.query.page
+  let per_page = req.query.per_page == undefined ? 12 : req.query.per_page
+  let startPage = (page - 1) * per_page
+  var sql = `select * from blog limit ${startPage},${per_page}`; // 添加分页功能
   connection.query(sql, function (err, result) {
     if (err) {
       console.log('err', err.message)
@@ -93,7 +96,10 @@ router.put('/update/:id', function (req, res) {
 
 // 分类管理 -- 列表
 router.get("/cate/query", function (req, res) {
-  var sql = 'select * from blog_cate';
+  let page = req.query.page == undefined ? 1 : req.query.page
+  let per_page = req.query.per_page == undefined ? 12 : req.query.per_page
+  let startPage = (page - 1) * per_page
+  var sql = `select * from blog_cate limit ${startPage},${per_page}`;
   connection.query(sql, function (err, result) {
     if (err) {
       console.log('err', err.message)
