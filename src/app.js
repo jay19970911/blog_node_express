@@ -22,6 +22,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //   next();
 // })
 
+// 添加token验证
 app.use(function (req, res, next) {
   if (req.url != '/api/user/login' && req.url != '/api/user/register') {
     let token = req.headers.authorization
