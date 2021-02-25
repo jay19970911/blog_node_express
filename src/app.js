@@ -6,7 +6,6 @@ const userRouter = require('./router/user');
 const blogRouter = require('./router/blog');
 const projectRouter = require('./router/project');
 
-
 var secretkey = 'secretkey'
 const port = 3010
 

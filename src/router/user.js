@@ -38,7 +38,7 @@ router.post('/login', function (req, res) {
   var sql = `select * from user where username = '${user.username}' and password = '${user.password}'`
   connection.query(sql, function (err, result) {
     if (err) throw err
-    var token = jwt.sign({ username: user.username }, secretkey, { expiresIn: 60 * 60 })
+    var token = jwt.sign({ username: user.username }, secretkey, { expiresIn: 60 * 60 * 24 * 365 * 5 })
     res.json({
       code: '200',
       message: '登录成功',

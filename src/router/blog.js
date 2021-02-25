@@ -3,6 +3,8 @@ var router = express.Router()
 
 var connection = require('../mysql');
 
+const marked = require('../utils/md')
+
 /**
  * 查询列表页
  */
@@ -55,7 +57,10 @@ router.get('/detail/:id', function (req, res) {
     res.json({
       code: '200',
       message: '查询成功',
-      data: result[0]
+      data: {
+        ...result[0],
+        md: marked(result[0].content)
+      }
     })
   })
 })
