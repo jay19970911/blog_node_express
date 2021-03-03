@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const userRouter = require('./router/user');
 const blogRouter = require('./router/blog');
 const projectRouter = require('./router/project');
+const homeRouter = require('./router/home');
 
 var secretkey = 'secretkey'
 const port = 3010
@@ -43,6 +44,7 @@ app.use(function (req, res, next) {
 app.use('/api/user', userRouter);
 app.use('/api/blog', blogRouter);
 app.use('/api/project', projectRouter)
+app.use('/api/home', homeRouter)
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)

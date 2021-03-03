@@ -9,7 +9,23 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-module.exports = connection
+const query = (sql) => {
+  return new Promise((resolve, reject) => {
+    connection.query(sql, function (err, result) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(result)
+      }
+    })
+  })
+}
+
+// const connection = connection
+module.exports = {
+  query,
+  connection
+}
 
 // var pool = mysql.createPool({
 //   host: 'localhost',

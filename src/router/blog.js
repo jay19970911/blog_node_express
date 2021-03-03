@@ -1,7 +1,7 @@
 var express = require('express')
 var router = express.Router()
 
-var connection = require('../mysql');
+var { connection } = require('../mysql');
 
 const marked = require('../utils/md')
 
@@ -12,7 +12,9 @@ router.get("/query", function (req, res) {
   let page = req.query.page == undefined ? 1 : req.query.page
   let per_page = req.query.per_page == undefined ? 12 : req.query.per_page
   let startPage = (page - 1) * per_page
-  var sql = `select * from blog limit ${startPage},${per_page}`; // 添加分页功能
+  // const sql = `select * from blog limit ?,?`; // 添加分页功能
+  // connection.query(sql, [startPage, per_page], function (err, result) {
+  const sql = `select * from blog limit ${startPage},${per_page}`; // 添加分页功能
   connection.query(sql, function (err, result) {
     if (err) {
       console.log('err', err.message)

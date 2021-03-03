@@ -7,7 +7,7 @@ var secretkey = 'secretkey'
 
 const router = express.Router()
 
-const connection = require('../mysql');
+const { connection } = require('../mysql');
 
 // 注册
 router.get('/register', function (req, res) {
