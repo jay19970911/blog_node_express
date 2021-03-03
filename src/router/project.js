@@ -45,7 +45,6 @@ router.post('/add', function (req, res) {
 router.put('/update/:id', function (req, res) {
   const params = req.body
   var sql = `update project set name = '${params.name}',cover='${params.cover}',skill='${params.skill}',tool='${params.tool}',introduce='${params.introduce}',desc_info='${params.desc_info}',created_at='${params.created_at}',end_at='${params.end_at}' where id='${params.id}'`
-  console.log(sql, 99)
   connection.query(sql, function (err, result) {
     if (err) {
       console.log(err.message, 'err')
