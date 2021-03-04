@@ -13,11 +13,19 @@ router.get('/query', function (req, res) {
     if (err) {
       console.log(err.message, 'err')
     }
-    res.json({
-      code: '200',
-      message: '操作成功',
-      list: result,
-      total: result.length
+    let sqlTotal = 'select count(id) as total from project'
+    connection.query(sqlTotal, function (error, among) {
+      if (error) {
+        console.log(error);
+      } else {
+        let total = among[0]['total'] //查询表中的数量
+        res.json({
+          status: 200,
+          message: "success",
+          list: result,
+          total: total
+        })
+      }
     })
   })
 })

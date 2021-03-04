@@ -9,20 +9,30 @@ const marked = require('../utils/md')
  * 查询列表页
  */
 router.get("/query", function (req, res) {
+  const { title = '' } = req.query
   let page = req.query.page == undefined ? 1 : req.query.page
   let per_page = req.query.per_page == undefined ? 12 : req.query.per_page
   let startPage = (page - 1) * per_page
   // const sql = `select * from blog limit ?,?`; // 添加分页功能
   // connection.query(sql, [startPage, per_page], function (err, result) {
-  const sql = `select * from blog limit ${startPage},${per_page}`; // 添加分页功能
+  const sql = title ? `select * from blog  where title like '%${title}%' limit ${startPage},${per_page}` : `select * from blog limit ${startPage},${per_page}`; // 添加分页和搜索功能
   connection.query(sql, function (err, result) {
     if (err) {
       console.log('err', err.message)
     } else {
-      res.json({
-        code: '200',
-        list: result,
-        total: result.length
+      let sqlTotal = 'select count(id) as total from blog'
+      connection.query(sqlTotal, function (error, among) {
+        if (error) {
+          console.log(error);
+        } else {
+          let total = among[0]['total'] //查询表中的数量
+          res.json({
+            status: 200,
+            message: "success",
+            list: result,
+            total: total
+          })
+        }
       })
     }
   })
@@ -111,10 +121,19 @@ router.get("/cate/query", function (req, res) {
     if (err) {
       console.log('err', err.message)
     } else {
-      res.json({
-        code: '200',
-        list: result,
-        total: result.length
+      let sqlTotal = 'select count(id) as total from blog_cate'
+      connection.query(sqlTotal, function (error, among) {
+        if (error) {
+          console.log(error);
+        } else {
+          let total = among[0]['total'] //查询表中的数量
+          res.json({
+            status: 200,
+            message: "success",
+            list: result,
+            total: total
+          })
+        }
       })
     }
   })
