@@ -35,7 +35,7 @@ router.get('/query', function (req, res) {
  */
 router.post('/add', function (req, res) {
   const params = req.body
-  var sql = `insert into project (name,cover,skill,project_tag,sort,status,introduce,tool,desc_info,created_at,end_at) values ('${params.name}','${params.cover}','${params.skill}','${params.project_tag}',0,0,'${params.introduce}','${params.tool}','${params.desc_info}','${params.created_at}','${params.end_at}');`
+  var sql = `insert into project (name,cover,skill,project_tag,sort,status,introduce,tool,desc_info,created_at,end_at,modules) values ('${params.name}','${params.cover}','${params.skill}','${params.project_tag}',0,0,'${params.introduce}','${params.tool}','${params.desc_info}','${params.created_at}','${params.end_at}','${params.modules}');`
   connection.query(sql, function (err, result) {
     if (err) {
       console.log(err.message, 'err')
@@ -52,7 +52,7 @@ router.post('/add', function (req, res) {
  */
 router.put('/update/:id', function (req, res) {
   const params = req.body
-  var sql = `update project set name = '${params.name}',cover='${params.cover}',skill='${params.skill}',tool='${params.tool}',introduce='${params.introduce}',desc_info='${params.desc_info}',created_at='${params.created_at}',end_at='${params.end_at}' where id='${params.id}'`
+  var sql = `update project set name = '${params.name}',cover='${params.cover}',skill='${params.skill}',tool='${params.tool}',introduce='${params.introduce}',desc_info='${params.desc_info}',created_at='${params.created_at}',end_at='${params.end_at}',modules='${params.modules}' where id='${params.id}'`
   connection.query(sql, function (err, result) {
     if (err) {
       console.log(err.message, 'err')
